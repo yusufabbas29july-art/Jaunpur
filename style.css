@@ -1031,5 +1031,134 @@ li { margin-bottom: var(--space-2); }
 .u-invisible { visibility: hidden !important; }
 
 /* ==========================================================================
+   17. LANGUAGE TOGGLE & MODALS (UPDATED EXTENSIONS)
+   ========================================================================== */
+
+/* Language Toggle Styling */
+.lang-toggle {
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    color: var(--brand-primary);
+    background: var(--brand-primary-50);
+}
+[data-theme="dark"] .lang-toggle {
+    color: var(--text-inverse);
+    background: var(--brand-primary-900);
+}
+
+/* Modal Overlay Base */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-medium), visibility var(--transition-medium);
+}
+.modal-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Content Box */
+.modal-content {
+    background: var(--bg-surface);
+    width: 90%;
+    max-width: 650px;
+    padding: var(--space-10);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--border-light);
+    border-top: 6px solid var(--brand-primary);
+    position: relative;
+    transform: translateY(30px) scale(0.95);
+    transition: transform var(--transition-bounce);
+    box-shadow: var(--shadow-2xl);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+.modal-overlay.is-active .modal-content {
+    transform: translateY(0) scale(1);
+}
+[data-theme="dark"] .modal-content {
+    border-color: var(--border-medium);
+    border-top-color: var(--brand-primary);
+}
+
+/* Modal Typography */
+.modal-title {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-4);
+    letter-spacing: 1px;
+}
+.modal-content p {
+    font-family: var(--font-ui, sans-serif);
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+    text-align: left;
+}
+
+/* Close Button */
+.close-modal-btn {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background: var(--bg-alternate);
+    color: var(--text-secondary);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-circle);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+.close-modal-btn:hover {
+    background: var(--brand-primary);
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+/* Custom Modal Scrollbar */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--border-heavy);
+    border-radius: var(--radius-pill);
+}
+
+/* Mobile Adjustments for Modal */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: var(--space-6);
+        padding-top: var(--space-10);
+    }
+    .modal-title {
+        font-size: var(--fs-lg);
+    }
+}
+@media print {
+    .modal-overlay {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
    END OF MASTER STYLESHEET
    ========================================================================== */
