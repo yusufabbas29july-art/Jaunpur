@@ -3,7 +3,7 @@
  * JAUNPUR HISTORICAL ARCHIVE - ENTERPRISE JAVASCRIPT ENGINE
  * ==============================================================================
  * Author: Mohammed Yusuf Abbas
- * Version: 8.0.0 (Ultimate Academic Build - Locked Down & Bug Free)
+ * Version: 8.1.0 (Ultimate Academic Build - Locked Down, Bug Free & Bilingual)
  * Description: Advanced interactive features, state management, and accessibility.
  * ==============================================================================
  */
@@ -576,6 +576,52 @@ document.addEventListener('DOMContentLoaded', () => {
         return { fire };
     })();
 
+// ==========================================================================
+    // 13. DISCLAIMER MODAL SYSTEM (UPDATED: Shows every time)
+    // ==========================================================================
+    const DisclaimerSystem = (() => {
+        const init = () => {
+            const modal = document.getElementById('disclaimer-modal');
+            const closeBtn = document.querySelector('.close-modal-btn');
+            
+            // Only execute if modal exists on the current page
+            if (!modal || !closeBtn) return;
+
+            // Removed localStorage check so it triggers every single time the page loads
+            setTimeout(() => {
+                modal.classList.add('is-active');
+                modal.setAttribute('aria-hidden', 'false');
+                DOM.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }, 800); // 800ms delay feels natural
+
+            const closeModal = () => {
+                modal.classList.remove('is-active');
+                modal.setAttribute('aria-hidden', 'true');
+                DOM.body.style.overflow = ''; // Restore scrolling
+                
+                ToastSystem.show("Enjoy reading! / पढ़ने का आनंद लें!", "📖");
+            };
+
+            closeBtn.addEventListener('click', closeModal);
+
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('is-active')) {
+                    closeModal();
+                }
+            });
+
+            // Close when clicking outside the modal content
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        };
+
+        return { init };
+    })();
+
     // ==========================================================================
     // SYSTEM BOOTSTRAP
     // ==========================================================================
@@ -591,6 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
             Animations.init();
             AnchorShare.init();
             BackToTop.init();
+            DisclaimerSystem.init(); // Booting up the modal system
             
             console.log(
                 "%c Archive Engine Loaded Successfully \n%c Historical Evolution of Jaunpur - Bug Free UI Systems Online 🚀", 
